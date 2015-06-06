@@ -49,7 +49,7 @@ The set of variables that were estimated from these signals are:
 * bandsEnergy: Energy of a frequency interval within the 64 bins of the FFT of each window.
 * angle: Angle between to vectors.
 
-In all, 561 types of measurments were mad eon each subject.  For reasons I do not know, some measurment names in the data as described above are *duplicated*.  Here is a table of the duplicated names, showing that each was duplicated three times:
+In all, 561 types of measurments were made on each subject.  For reasons I do not know, some measurment names in the data as described above are *duplicated*.  Here is a table of the duplicated names, showing that each was duplicated three times:
 
 ```
                                  timesOccurring

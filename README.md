@@ -13,7 +13,7 @@ There were 30 subjects.  Each performed all of 6 possible activities several tim
 
 Thirty subjects, six activities, 561 types of measurement, two summaries for each type gives
 
-$$30 \times 6 \times 561 \times 2 = 201960.$$
+> 30 x 6 x 561 x 2 = 201960.
 
 Hence there are 201960 rows in the data set.
 
@@ -25,7 +25,7 @@ There are five columns:
 * **variable**:  type of phone measurement that is being summarized
 * **value**:  numerical value of the summary (the value of the mean or the sd)
 
-Thus, it's a tidy data set.
+Thus it's a tidy data set, albeit in long format.
 
 Consult the `run_analysis.R` script in this repo to learn how I made the `samsungAVG` data frame:  I have provided reasonably detailed comments for each step.  You can consult the file `codebook.md` for a detailed account of the names for the different types of measurements that were made on each subject.
 
