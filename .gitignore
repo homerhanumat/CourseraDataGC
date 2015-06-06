@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+*.zip
+*.Rproj
+UCI_HAR_Dataset/
+directions.txt
+samsungAVG.txt
+codebook.html
+README.html
