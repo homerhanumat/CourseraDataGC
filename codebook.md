@@ -49,7 +49,7 @@ The set of variables that were estimated from these signals are:
 * bandsEnergy: Energy of a frequency interval within the 64 bins of the FFT of each window.
 * angle: Angle between to vectors.
 
-The data contains 561 measurments.  For reasons I do not know, some measurment names in the data as described above are *duplicated*.  Here is a table of the duplicated names, showing that each was duplicated three times:
+In all, 561 types of measurments were mad eon each subject.  For reasons I do not know, some measurment names in the data as described above are *duplicated*.  Here is a table of the duplicated names, showing that each was duplicated three times:
 
 ```
                                  timesOccurring
@@ -97,20 +97,25 @@ fBodyGyro-bandsEnergy()-57,64                 3
 fBodyGyro-bandsEnergy()-9,16                  3
 ```
 
-Interestingly, for each of the duplicated names the three columns of measurements are distinct from one another.  Hence I decided to preserve all three columns, but to distinguish their names by appending a "version tag".  Thus, the second occurence of the variable `fBodyGyro-bandsEnergy()-9,16` appears in the data frame as:
+Interestingly, for each of the duplicated names the three columns of measurements are distinct from one another.  Hence I decided to treat such measurments as three distinct measurement types, and to distinguish their names by appending a "version tag".  Thus, the second occurence of the measurment-type `fBodyGyro-bandsEnergy()-9,16` appears in the data frame as:
 
 > `fBodyGyro-bandsEnergy()-9,16.Version2`
 
 
-Two other variables in the data are:
+The variables in the data set are as follows:
 
-* subject:  Number assigned to each subject in the study
-* activity:  the activity performed by each subjects when the measurments were being made.  Possible values are:
-  * walking
-  * walking_upstairs
-  * walking downstairs
-  * sitting
-  * standing
-  * laying
+* **subject**:  the ID number assigned to each subject in the study.
+* **activity**:  the activity performed by each subjects when the measurments were being made.  Possible values are:
+    * walking
+    * walking_upstairs
+    * walking downstairs
+    * sitting
+    * standing
+    * laying
+* **summaryType**: type of numerical summary to be given.  Possible values are:
+    * mean
+    * standardDeviation
+* **variable**:  type of phone measurement that is being summarized.  There are 561 possible types, as described above.
+* **value**:  the numerical value of the summary (the value of the mean or the sd)
 
-The `samsungAVG.txt` data file shows the average of each of the 561 measurments, for each subject for each activity.
+The `samsungAVG.txt` data file shows the mean and the standard deviation of each of the 561 types of measurements, for each subject for each activity.

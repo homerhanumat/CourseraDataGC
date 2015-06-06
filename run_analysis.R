@@ -4,6 +4,7 @@
 # load some packages:
 library(plyr)
 library(dplyr)
+library(reshape2)
 
 
 # read in training and test subjects
@@ -101,10 +102,27 @@ for (dupName in duplicatedCleanNames) {
 samsung <- cbind(subjects,x,y)
 names(samsung) <- c("subject", measNamesDistinguished, "activity")
 
-# Assignment wants the summary frame with the grouped means, so we do that:
-samsungAVG <- samsung %>% 
+# Assignment wants the summary frame with the grouped means and grouped sds.
+# So, we get the grouped means:
+samsungMean <- samsung %>% 
   group_by(subject, activity)  %>%
   summarise_each(funs(mean))
+
+# Then we get the grouped sds:
+samsungSD <- samsung %>% 
+  group_by(subject, activity)  %>%
+  summarise_each(funs(mean))
+
+# Combine them:
+samsungBoth <- rbind(samsungMean, samsungSD)
+
+# add a variable to indicate which type of summary is given:
+n <- nrow(samsungMean)
+summaryType <- c(rep("mean", n), rep("standardDeviation", n))
+samsungBoth$summaryType <- summaryType
+
+# reshape to long format:
+samsungAVG <- melt(samsungBoth, id.vars = c("subject", "activity", "summaryType"))
 
 # Write it to a text file:
 write.table(samsungAVG,"samsungAVG.txt", row.names = FALSE)
