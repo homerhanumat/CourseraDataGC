@@ -49,10 +49,57 @@ The set of variables that were estimated from these signals are:
 * bandsEnergy: Energy of a frequency interval within the 64 bins of the FFT of each window.
 * angle: Angle between to vectors.
 
-The data contains 561 measurments.  Some measurment names in the data, as described above, are suplicated (I don't know why), so a tag of the form `.Vi` is appended to the end of the ith measurement to avoid duplication in names.  For example, the 100th measurement name is:  
+The data contains 561 measurments.  For reasons I do not know, some measurment names in the data as described above are *duplicated*.  Here is a table of the duplicated names, showing that each was duplicated three times:
 
-> tBodyAccJerk.iqr.X.V100
+```
+                                 timesOccurring
+fBodyAcc-bandsEnergy()-1,16                   3
+fBodyAcc-bandsEnergy()-1,24                   3
+fBodyAcc-bandsEnergy()-17,24                  3
+fBodyAcc-bandsEnergy()-17,32                  3
+fBodyAcc-bandsEnergy()-1,8                    3
+fBodyAcc-bandsEnergy()-25,32                  3
+fBodyAcc-bandsEnergy()-25,48                  3
+fBodyAcc-bandsEnergy()-33,40                  3
+fBodyAcc-bandsEnergy()-33,48                  3
+fBodyAcc-bandsEnergy()-41,48                  3
+fBodyAcc-bandsEnergy()-49,56                  3
+fBodyAcc-bandsEnergy()-49,64                  3
+fBodyAcc-bandsEnergy()-57,64                  3
+fBodyAcc-bandsEnergy()-9,16                   3
+fBodyAccJerk-bandsEnergy()-1,16               3
+fBodyAccJerk-bandsEnergy()-1,24               3
+fBodyAccJerk-bandsEnergy()-17,24              3
+fBodyAccJerk-bandsEnergy()-17,32              3
+fBodyAccJerk-bandsEnergy()-1,8                3
+fBodyAccJerk-bandsEnergy()-25,32              3
+fBodyAccJerk-bandsEnergy()-25,48              3
+fBodyAccJerk-bandsEnergy()-33,40              3
+fBodyAccJerk-bandsEnergy()-33,48              3
+fBodyAccJerk-bandsEnergy()-41,48              3
+fBodyAccJerk-bandsEnergy()-49,56              3
+fBodyAccJerk-bandsEnergy()-49,64              3
+fBodyAccJerk-bandsEnergy()-57,64              3
+fBodyAccJerk-bandsEnergy()-9,16               3
+fBodyGyro-bandsEnergy()-1,16                  3
+fBodyGyro-bandsEnergy()-1,24                  3
+fBodyGyro-bandsEnergy()-17,24                 3
+fBodyGyro-bandsEnergy()-17,32                 3
+fBodyGyro-bandsEnergy()-1,8                   3
+fBodyGyro-bandsEnergy()-25,32                 3
+fBodyGyro-bandsEnergy()-25,48                 3
+fBodyGyro-bandsEnergy()-33,40                 3
+fBodyGyro-bandsEnergy()-33,48                 3
+fBodyGyro-bandsEnergy()-41,48                 3
+fBodyGyro-bandsEnergy()-49,56                 3
+fBodyGyro-bandsEnergy()-49,64                 3
+fBodyGyro-bandsEnergy()-57,64                 3
+fBodyGyro-bandsEnergy()-9,16                  3
+```
 
+Interestingly, for each of the duplicated names the three columns of measurements are distinct from one another.  Hence I decided to preserve all three columns, but to distinguish their names by appending a "version tag".  Thus, the second occurence of the variable `fBodyGyro-bandsEnergy()-9,16` appears in the data frame as:
+
+> `fBodyGyro-bandsEnergy()-9,16.Version2`
 
 
 Two other variables in the data are:

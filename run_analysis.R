@@ -45,6 +45,12 @@ measNames <- gsub(pattern = "^.* ", replacement = "", x = measNames)
 duplicatedNames <- unique(measNames[duplicated(measNames)])
 # yikes, many of them ARE duplicatred!
 
+# Let's make a table of the repeated names:
+namesSelected <- measNames[measNames %in% duplicatedNames]
+tab <- as.matrix(table(namesSelected))
+colnames(tab) <- "timesOccurring"
+tab
+
 # Could it be that columns for identical names contain identical measurements?
 # If so, then we could delete spurious columns from the data.
 
@@ -80,17 +86,25 @@ measNames <- gsub(pattern = "BodyBody", replacement = "Body", x = measNames)
 measNames <- gsub(pattern = "\\(|\\)", replacement = "", x = measNames)
 measNames <- gsub(pattern = "[-,]", replacement = ".", x = measNames)
 
-# add tag at the end of each to eliminate duplication:
-measnamesTagged <- paste0(measNames,".V",1:561)
 
-# finally, we can make the full tidy data frame:
+# add verion tags at the end of each of each duplicated name:
+duplicatedCleanNames <- unique(measNames[duplicated(measNames)])
+measNamesDistinguished <- measNames
+for (dupName in duplicatedCleanNames) {
+  places <- which(measNames == dupName)
+  for (j in 1:length(places)) {
+    measNamesDistinguished[places[j]] <- paste0(measNames[places[j]], ".Version",j)
+  }
+}
+
+# Finally, we can make the full tidy data frame!
 samsung <- cbind(subjects,x,y)
-names(samsung) <- c("subject", measnamesTagged, "activity")
+names(samsung) <- c("subject", measNamesDistinguished, "activity")
 
-# Assignment wants the summary frame with the grouped means:
+# Assignment wants the summary frame with the grouped means, so we do that:
 samsungAVG <- samsung %>% 
   group_by(subject, activity)  %>%
   summarise_each(funs(mean))
 
-# write it to a text file:
+# Write it to a text file:
 write.table(samsungAVG,"samsungAVG.txt", row.names = FALSE)
