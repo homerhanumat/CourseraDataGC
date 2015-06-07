@@ -3,7 +3,7 @@
 The required data frame can be downloaded from the Coursera site.  You can read it in using the following R command (assuming you have it in your working directory):
 
 ```
-samsunAVG <- read.table("samsungAVG.txt", header = TRUE)
+samsung<- read.table("samsung.txt", header = TRUE)
 ```
 
 There were 30 subjects.  Each performed all of 6 possible activities several times.  During each performance of a particular activity, 561 types of measurement were made on the subject.  The data set provided here records two summaries of each type of measurement:
@@ -11,7 +11,7 @@ There were 30 subjects.  Each performed all of 6 possible activities several tim
 * the mean over all performances of the given activity by the given subject
 * the standard deviation over all performances of the given activity by the given subject 
 
-Thirty subjects, six activities, 561 types of measurement, two summaries for each type gives
+Thirty subjects, six activities, 561 types of measurement, two summaries for each type gives:
 
 > 30 x 6 x 561 x 2 = 201960.
 
@@ -22,7 +22,7 @@ There are five columns:
 * **subject**:  the id number of the subject
 * **activity**:  the activity being performed by the subject
 * **summaryType**: type of numerical summary (mean or sd)
-* **variable**:  type of phone measurement that is being summarized
+* **measurementType**:  type of phone measurement that is being summarized
 * **value**:  numerical value of the summary (the value of the mean or the sd)
 
 Thus it's a tidy data set, albeit in long format.

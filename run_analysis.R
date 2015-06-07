@@ -111,7 +111,7 @@ samsungMean <- samsung %>%
 # Then we get the grouped sds:
 samsungSD <- samsung %>% 
   group_by(subject, activity)  %>%
-  summarise_each(funs(mean))
+  summarise_each(funs(sd))
 
 # Combine them:
 samsungBoth <- rbind(samsungMean, samsungSD)
@@ -123,6 +123,7 @@ samsungBoth$summaryType <- summaryType
 
 # reshape to long format:
 samsungAVG <- melt(samsungBoth, id.vars = c("subject", "activity", "summaryType"))
+names(samsungSD)[4] <- "measurementType"
 
 # Write it to a text file:
-write.table(samsungAVG,"samsungAVG.txt", row.names = FALSE)
+write.table(samsungAVG,"samsung.txt", row.names = FALSE)

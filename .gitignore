@@ -6,5 +6,6 @@
 UCI_HAR_Dataset/
 directions.txt
 samsungAVG.txt
+samsung.txt
 codebook.html
 README.html

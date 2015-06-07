@@ -2,7 +2,7 @@
 
 **Note:  this document is adapted from `features_info.txt` file provided with the original data.**
 
-The features selected for the dataset `samsungAVG.txt` come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
+The features selected for the dataset `samsung.txt` come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
 Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
 
@@ -115,7 +115,7 @@ The variables in the data set are as follows:
 * **summaryType**: type of numerical summary to be given.  Possible values are:
     * mean
     * standardDeviation
-* **variable**:  type of phone measurement that is being summarized.  There are 561 possible types, as described above.
+* **measurementType**:  type of phone measurement that is being summarized.  There are 561 possible types, as described above.
 * **value**:  the numerical value of the summary (the value of the mean or the sd)
 
-The `samsungAVG.txt` data file shows the mean and the standard deviation of each of the 561 types of measurements, for each subject for each activity.
+The `samsung.txt` data file shows the mean and the standard deviation of each of the 561 types of measurements, for each subject for each activity.
