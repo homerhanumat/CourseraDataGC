@@ -116,6 +116,6 @@ The variables in the data set are as follows:
     * mean
     * standardDeviation
 * **measurementType**:  type of phone measurement that is being summarized.  There are 561 possible types, as described above.
-* **value**:  the numerical value of the summary (the value of the mean or the sd)
+* **value**:  the numerical value of the summary (the value of the mean or the sd). This numerical variable has no units, since the data provided in the assignment was already standardized.
 
 The `samsung.txt` data file shows the mean and the standard deviation of each of the 561 types of measurements, for each subject for each activity.

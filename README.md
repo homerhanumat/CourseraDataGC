@@ -23,7 +23,7 @@ There are five columns:
 * **activity**:  the activity being performed by the subject
 * **summaryType**: type of numerical summary (mean or sd)
 * **measurementType**:  type of phone measurement that is being summarized
-* **value**:  numerical value of the summary (the value of the mean or the sd)
+* **value**:  numerical value of the summary (the value of the mean or the sd), unitless since the data privided in the assignment were already standardized
 
 Thus it's a tidy data set, albeit in long format.
 
