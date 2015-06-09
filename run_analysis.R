@@ -1,5 +1,5 @@
 # Steps for getting the data are described in GettingData.R, in this repo.
-# I renamed the downloaded and unzipped directory UCI_HAR_Dataset.
+# (I renamed the downloaded and unzipped directory UCI_HAR_Dataset.)
 
 # load some packages:
 library(plyr)
