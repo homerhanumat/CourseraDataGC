@@ -44,11 +44,11 @@ measNames <- gsub(pattern = "^.* ", replacement = "", x = measNames)
 
 # Another issue:  some measurment names do not appear in the code book:
 bodyDouble <- grep(pattern = "BodyBody", x = measNames, value = TRUE)
-bodyDouble
+# bodyDouble
 
 # Do the names with Body not doubled appear?
 bodySingle <- gsub(pattern = "BodyBody", replacement = "Body", x = bodyDouble)
-length(which(measNames %in% bodySingle))
+# length(which(measNames %in% bodySingle))
 # They don't!  We should eliminate the doubled "Body" in these names.
 measNames <- gsub(pattern = "BodyBody", replacement = "Body", x = measNames)
 
@@ -58,7 +58,7 @@ neededNames <- grepl(pattern = "-((mean)|(std))\\(\\)", x = measNames)
 
 # I noticed that of the original 561 features, some of the names were duplicated.
 # Is this the case for the ones we need?
-sum(duplicated(measNames[neededNames]))
+# sum(duplicated(measNames[neededNames]))
 # no duplications, good!
 
 # Given my ignorance of physics, I'd better not try to make any of the feature
@@ -87,5 +87,5 @@ names(samsungAVG)[4] <- "mean"
 write.table(samsungAVG,"samsung.txt", row.names = FALSE)
 
 # prepare list of feature names for codebook:
-mydf <- data.frame(feature = measNames[neededNames])
-mydf
+#mydf <- data.frame(feature = measNames[neededNames])
+#mydf
