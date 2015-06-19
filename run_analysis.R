@@ -42,37 +42,6 @@ close(connection)
 # remove spurious row numbers at beginning of each line
 measNames <- gsub(pattern = "^.* ", replacement = "", x = measNames)
 
-# Check to see if any names are duplicated
-duplicatedNames <- unique(measNames[duplicated(measNames)])
-# yikes, many of them ARE duplicatred!
-
-# Let's make a table of the repeated names:
-namesSelected <- measNames[measNames %in% duplicatedNames]
-tab <- as.matrix(table(namesSelected))
-colnames(tab) <- "timesOccurring"
-tab
-
-# Could it be that columns for identical names contain identical measurements?
-# If so, then we could delete spurious columns from the data.
-
-# To check this, we build a small data frame consisting of the columns
-# whose names are repeated.
-colsSelected <- x[measNames %in% duplicatedNames]
-namesSelected <- measNames[measNames %in% duplicatedNames]
-names(colsSelected) <- namesSelected
-
-# now check to see if any columns are the same
-mat <- t(as.matrix(colsSelected))
-# the duplicated() function applied to a data frame checks
-# to see if rows are duplicated:
-dups <- duplicated(as.data.frame(mat))
-
-# Were there any duplicated rows?
-any(dups)
-# No!  So we had better keep all of the columns with duplicated names,
-# but complain about it in the README.md file.
-
-
 # Another issue:  some measurment names do not appear in the code book:
 bodyDouble <- grep(pattern = "BodyBody", x = measNames, value = TRUE)
 bodyDouble
@@ -83,47 +52,40 @@ length(which(measNames %in% bodySingle))
 # They don't!  We should eliminate the doubled "Body" in these names.
 measNames <- gsub(pattern = "BodyBody", replacement = "Body", x = measNames)
 
-# Clean the names a bit, replacing all other punctuation with a dot:
-measNames <- gsub(pattern = "\\(|\\)", replacement = "", x = measNames)
-measNames <- gsub(pattern = "[-,]", replacement = ".", x = measNames)
+# we need only the names that indicate computationof mean or standard
+# deviation:  "-mean()" or "-std()" according to the codebook:
+neededNames <- grepl(pattern = "-((mean)|(std))\\(\\)", x = measNames)
 
+# I noticed that of the original 561 features, some of the names were duplicated.
+# Is this the case for the ones we need?
+sum(duplicated(measNames[neededNames]))
+# no duplications, good!
 
-# add verion tags at the end of each of each duplicated name:
-duplicatedCleanNames <- unique(measNames[duplicated(measNames)])
-measNamesDistinguished <- measNames
-for (dupName in duplicatedCleanNames) {
-  places <- which(measNames == dupName)
-  for (j in 1:length(places)) {
-    measNamesDistinguished[places[j]] <- paste0(measNames[places[j]], ".Version",j)
-  }
-}
+# Given my ignorance of physics, I'd better not try to make any of the feature
+# names "more descriptive".
 
 # Finally, we can make the full tidy data frame!
-samsung <- cbind(subjects,x,y)
-names(samsung) <- c("subject", measNamesDistinguished, "activity")
+# select only the features that we need:
+xSmall <- x[,which(neededNames)]
+samsung <- cbind(subjects,xSmall,y)
+names(samsung) <- c("subject", measNames[neededNames], "activity")
 
-# Assignment wants the summary frame with the grouped means and grouped sds.
-# So, we get the grouped means:
+# Assignment wants the summary.
+# So, we get group by subject and activity, then take means over the groups:
 samsungMean <- samsung %>% 
   group_by(subject, activity)  %>%
   summarise_each(funs(mean))
 
-# Then we get the grouped sds:
-samsungSD <- samsung %>% 
-  group_by(subject, activity)  %>%
-  summarise_each(funs(sd))
+# I like a long format, here:
+samsungAVG <- melt(samsungMean, id.vars = c("subject", "activity"))
+# make column names more descriptive
+names(samsungAVG)[3] <- "feature"
+names(samsungAVG)[4] <- "mean"
 
-# Combine them:
-samsungBoth <- rbind(samsungMean, samsungSD)
-
-# add a variable to indicate which type of summary is given:
-n <- nrow(samsungMean)
-summaryType <- c(rep("mean", n), rep("standardDeviation", n))
-samsungBoth$summaryType <- summaryType
-
-# reshape to long format:
-samsungAVG <- melt(samsungBoth, id.vars = c("subject", "activity", "summaryType"))
-names(samsungSD)[4] <- "measurementType"
 
 # Write it to a text file:
 write.table(samsungAVG,"samsung.txt", row.names = FALSE)
+
+# prepare list of feature names for codebook:
+mydf <- data.frame(feature = measNames[neededNames])
+mydf
